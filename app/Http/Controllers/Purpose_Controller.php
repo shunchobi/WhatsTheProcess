@@ -18,6 +18,7 @@ class Purpose_Controller extends Controller
         return view('purpose_list', ['purpose_datas' => $purpose_datas]);
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -25,7 +26,7 @@ class Purpose_Controller extends Controller
      */
     public function create()
     {
-        //
+        return view('add_purpose_list');
     }
 
     /**
@@ -81,11 +82,13 @@ class Purpose_Controller extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * 
+     * 
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        Purpose::where('id', $id)->delete();
     }
 }

@@ -22,4 +22,5 @@ Route::get('/', function () {
 Route::resource('process', Process_Controller::class);
 Route::resource('purpose', Purpose_Controller::class);
 
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
