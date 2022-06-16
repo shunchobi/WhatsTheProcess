@@ -23,6 +23,7 @@ $current_sort_num = 1;
 
 <!-- 入力されたデータはどんな形（配列なのか？）でinsertできるか調べ、よい形のデータにまとめながら下記PHPで
 きれいに表現する -->
+
 <?php for($i = 0; $i < $current_sort_num; $i++) {?>
 <div class="processes-contents">
     <label class="sort-number"><?php $current_sort_num ?></label>
