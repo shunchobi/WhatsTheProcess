@@ -2,16 +2,19 @@
 
 @section('content')
 
-<?php
 
-$current_sort_num = 1;
+@php
+$current_sort_num = 10;
+@endphp
 
-?>
 
 <h1 class="add-purpose-title"> Purposeを追加する</h1>
 
+
+<form method="post" action="{{ route('purpose.store') }}" id="purpose-data-title">
+@csrf
 <div class="purpose-title">
-<label>Purposeタイトル: <input type="text" class="purpose-title" value=""></label>
+<label>Purposeタイトル: <input type="text" class="purpose-title" name="purpose_title" value=""></label>
 </div>
 
 <div class="processes-titles">
@@ -21,26 +24,19 @@ $current_sort_num = 1;
 <p class="description-title-txt">説明</p>
 </div>
 
-<!-- 入力されたデータはどんな形（配列なのか？）でinsertできるか調べ、よい形のデータにまとめながら下記PHPで
-きれいに表現する -->
-
-<?php for($i = 0; $i < $current_sort_num; $i++) {?>
+@for ($i = 1; $i <= $current_sort_num; $i++) 
 <div class="processes-contents">
-    <label class="sort-number"><?php $current_sort_num ?></label>
-    <input class="process-title" type="text" value="">
-    <input class="process-command" type="text" value="">
-    <input class="process-description" type="text" value="">
-    <button class="delete-added-process-btn" type="button">削除</button>
+    <label class="sort-number"> {{ $i }} </label>
+    <input class="process-title" type="text" value="" name="title[]">
+    <input class="process-command" type="text" value="" name="command[]">
+    <textarea class="process-description" type="text" value="" name="description[]"></textarea>
 </div>
-<?php } ?>
+@endfor
+</form>
 
-<div class="add-new-process">
-    <button class="add-new-process-btn" type="button">新しい工程を追加</button>
-</div>
-
-<div class="submit-btn-container">
+<!-- form外にbuttonを設けて、type="button"とし、JSからsubmitしている理由は、
+2つのform区画内のvalueを１つのbuttonから、それぞれのコントローラーのstoreにsubmitしたくて、それをきれいにまとめたかったから。 -->
 <button class="submit-btn" type="button">OK</button>
-</div>
 
 @endsection
 
@@ -51,19 +47,8 @@ window.addEventListener('DOMContentLoaded', function () {
     // 入力されたすべての情報をデータベースへinsertする
     //
     $(".submit-btn").click(function(){
-        const purpose_title = $(".purpose-title").val();
-        const sort_number = parseInt($(".sort-number").text());
+        $("#purpose-data-title").submit();
     });
-
-    //
-    // 新しい工程を追加ボタン
-    // 新しい工程を入力する欄を追加する
-    //
-     $(".add-new-process-btn").click(function(){
-
-    });
-
-
 });
 </script>
 
@@ -73,7 +58,4 @@ window.addEventListener('DOMContentLoaded', function () {
 div p{
     display: inline;
 }
-
-
-
 </style>

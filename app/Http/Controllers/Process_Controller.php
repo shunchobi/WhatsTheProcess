@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Process;
+use App\Models\Purpose;
 
 class Process_Controller extends Controller
 {
@@ -14,9 +15,10 @@ class Process_Controller extends Controller
      */
     public function index()
     {
-        $process_data = Process::get();
+        // $process_data = Process::get();
 
-        return view('process controller from index');
+        // return view('process controller from index');
+        return view('layout_test');
     }
 
     /**
@@ -24,7 +26,9 @@ class Process_Controller extends Controller
      *
      * @return \Illuminate\Http\Response
      * 
-     *  入力画面の生成とstoreへのデータの送信
+     * データベースから---GET--- 
+     * データベースからデータをゲットし、Viewを新規作成（create）する。
+     *  
      */
     public function create()
     {
@@ -45,7 +49,10 @@ class Process_Controller extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      * 
-     * 情報を受け取り保存（一覧へリダイレクト）
+     * データベースへ---POST---
+     * データベースに保存したいデータを受け取り、保存。
+     * そのあとViewを返すかどうかは任意とし、メインにやりたいことは
+     * サーバーへのデータ保存
      */
     public function store(Request $request)
     {
@@ -62,6 +69,7 @@ class Process_Controller extends Controller
     {
         $process_datas = Process::get();
         $target_process_datas = [];
+        $purpose_data = Purpose::find($id);
 
         foreach ($process_datas as $key => $value){
             if($process_datas[$key]['purpose_id'] == $id){
@@ -70,7 +78,11 @@ class Process_Controller extends Controller
             }
         }
 
-        return view('process_list', ['process_datas' => $target_process_datas]);
+        return view('process_list', [
+            'process_datas' => $target_process_datas,
+            'purpose' => $purpose_data,
+            'purpose_title' => $purpose_data['title']
+        ]);
     }
 
     /**
@@ -79,9 +91,9 @@ class Process_Controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        // dd($request);
     }
 
     /**
@@ -93,7 +105,14 @@ class Process_Controller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $targetList = Process::where('id', $id)->first();
+        $targetList->title = $request->title;
+        $targetList->command = $request->command;
+        $targetList->description = $request->description;
+        $targetList->save();
+
+        // return $this->show($targetList->purpose_id);
+        return redirect(route('process.show', $targetList->purpose_id));
     }
 
     /**

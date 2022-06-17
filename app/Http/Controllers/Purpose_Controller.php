@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Purpose;
+use App\Models\Process;
 
 class Purpose_Controller extends Controller
 {
@@ -37,12 +38,28 @@ class Purpose_Controller extends Controller
      */
     public function store(Request $request)
     {
-        Purpose::create([
-            'title' => $request->title,
-            'status' => $request->status,
+        //save the purpose datas
+        //save the process datas by loop
+        //retun index();
+        $purpose_new_datas = Purpose::create([
+            'title' => $request->purpose_title,
+            'status' => "draft", 
+            // 'status' => $request->purpose_status, // wanna add 
         ]);
-
-        return response()->json(['success'=>'Purpose Form is successfully submitted!']);
+        
+        $purpose_datas = Purpose::get();
+        for ($i=0; $i < 10; $i++) { 
+            Process::create([
+                'purpose_id' => $purpose_new_datas['id'],
+                'sort_number'  => $request->title[$i] == null ? "" : $i + 1,
+                'title' => $request->title[$i] ?? "",
+                'command' => $request->command[$i] ?? "",
+                'description' => $request->description[$i] ?? "",
+            ]); 
+        }
+        
+        // return $this->index();
+        return redirect(route('purpose.index'));
     }
 
     /**

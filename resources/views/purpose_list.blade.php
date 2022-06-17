@@ -14,7 +14,6 @@
             <form method="get" action="{{ route('process.show', $purpose_datas[$key]['id']) }}">
             @csrf
                 <button type="submit" class="purpose-title-btn">{{ $purpose_datas[$key]['title'] }}</button>
-                <button type="button" data-id="{{$purpose_datas[$key]['id']}}" class="purpose-edit-btn">編集</button>
                 <button type="button" data-id={{$purpose_datas[$key]['id']}} class="purpose-delete-btn">削除</button>
             </form> 
 
@@ -28,13 +27,6 @@
 
 <script>
 window.addEventListener('DOMContentLoaded', function () {    
-    //
-    //編集ボタン
-    //
-    $('.purpose-edit-btn').click(function(){
-
-    });
-
     //
     //削除ボタン
     //

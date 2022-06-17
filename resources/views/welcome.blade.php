@@ -21,6 +21,16 @@
         </style>
     </head>
     <body class="antialiased">
+
+    <a href="https://laravel.com/docs"><button class='btn btn-default'>Docs</button></a>
+<a href="https://laracasts.com"><button class='btn btn-primary'>Laracasts</button></a>
+<a href="https://laravel-news.com"><button class='btn btn-success'>News</button></a>
+<a href="https://blog.laravel.com"><button class='btn btn-info'>Blog</button></a>
+<a href="https://nova.laravel.com"><button class='btn btn-warning'>Nova</button></a>
+<a href="https://forge.laravel.com"><button class='btn btn-danger'>Forge</button></a>
+<a href="https://vapor.laravel.com"><button class='btn btn-link'>Vapor</button></a>
+<a href="https://github.com/laravel/laravel"><button class='btn btn-primary'>GitHub</button></a>
+
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
