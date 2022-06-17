@@ -193,4 +193,17 @@ body{margin-top:20px;}
     margin-left: auto;
     margin-right: auto;
 }
+.purpose-title-btn{
+	border: none;
+	background: transparent;
+	color: blue;
+}
+.purpose-delete-btn{
+	border: none;
+	background: transparent;
+	color: red;
+}
+.fa-dragon{
+	padding-left: 10px;
+}
 

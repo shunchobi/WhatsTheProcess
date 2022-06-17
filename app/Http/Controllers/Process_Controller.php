@@ -15,10 +15,10 @@ class Process_Controller extends Controller
      */
     public function index()
     {
-        // $process_data = Process::get();
+        $process_data = Process::get();
 
-        // return view('process controller from index');
-        return view('layout_test');
+        return view('process controller from index');
+        // return view('layout_test');
     }
 
     /**
