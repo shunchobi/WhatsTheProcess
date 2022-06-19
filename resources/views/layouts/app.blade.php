@@ -20,6 +20,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="../css/purpose_page.css" rel="stylesheet">
     <link href="../css/process_page.css" rel="stylesheet"> 
+    <link href="../css/add_purpose_page.css" rel="stylesheet">
 
 
     <!-- Styles -->
