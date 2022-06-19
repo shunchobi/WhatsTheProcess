@@ -8,37 +8,46 @@ $current_sort_num = 10;
 @endphp
 
 
-<h1 class="add-purpose-title"> Purposeを追加する</h1>
+<h1 class="add-purpose-title"> PurposeとProcessを追加する</h1>
 
 
 <form method="post" action="{{ route('purpose.store') }}" id="purpose-data-title">
 @csrf
-<div class="purpose-title">
-<label>Purposeタイトル: <input type="text" class="purpose-title" name="purpose_title" value=""></label>
+<div class="purpose-title-block">
+        <input placeholder="Purposeタイトル" type="text" class="purpose-title" name="purpose_title" value="">
 </div>
 
-<div class="processes-titles">
-<p class="sort-number-title-txt">No.</p>
-<p class="process-title-txt">タイトル</p>
-<p class="command-title-txt">コマンド</p>
-<p class="description-title-txt">説明</p>
-</div>
-
-@for ($i = 1; $i <= $current_sort_num; $i++) 
-<div class="processes-contents">
-    <label class="sort-number"> {{ $i }} </label>
-    <input class="process-title" type="text" value="" name="title[]">
-    <input class="process-command" type="text" value="" name="command[]">
-    <textarea class="process-description" type="text" value="" name="description[]"></textarea>
-</div>
-@endfor
+    <table class="add_p_table">
+        <thead>
+            <tr>
+                <th class="add_p_th">No.</th>
+                <th class="add_p_th">タイトル</th>
+                <th class="add_p_th">コマンド</th>
+                <th class="add_p_th">説明</th>
+            <tr>
+        <thead>
+        <tbody>
+            @for ($i = 1; $i <= $current_sort_num; $i++) 
+            <tr>
+                <td class="sort-num"><label class="sort-number"> {{ $i }} </label></td>
+                <td><input class="process-title-input" type="text" value="" name="title[]"></td>
+                <td><input class="process-command" type="text" value="" name="command[]"></td>
+                <td><textarea class="process-description" type="text" value="" name="description[]"></textarea></td>
+            </tr>
+            @endfor
+        </tbody>
+    </table>
 </form>
+
 
 <!-- form外にbuttonを設けて、type="button"とし、JSからsubmitしている理由は、
 2つのform区画内のvalueを１つのbuttonから、それぞれのコントローラーのstoreにsubmitしたくて、それをきれいにまとめたかったから。 -->
-<button class="submit-btn" type="button">OK</button>
+<div class="add-purpose-submit-block">
+    <button class="add-purpose-submit-btn btn btn-primary" type="button">OK</button>
+</div>
 
 @endsection
+
 
 <script>
 window.addEventListener('DOMContentLoaded', function () { 
@@ -52,10 +61,3 @@ window.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
-
-
-<style>
-div p{
-    display: inline;
-}
-</style>

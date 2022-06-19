@@ -1,0 +1,45 @@
+.add_p_table{
+    margin: 60px auto;
+    width: 65%;
+}
+
+.add_p_th{
+    background-color: dimgray;
+    color: white;
+    text-align: center;
+}
+
+.process-description{
+    resize: none;
+    height: 60px;
+    width: 300px;
+}
+.sort-num{
+    text-align: center;
+}
+.purpose-title-block{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.purpose-title{
+    width: 30%;
+    height: 60px;
+    font-size: 20px;
+    margin-top: 50px;
+}
+
+.add-purpose-title{
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+}
+
+.add-purpose-submit-block{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
