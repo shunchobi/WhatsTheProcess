@@ -9,7 +9,7 @@
 					<table class="table user-list">
 						<thead>
 							<tr>
-								<a type="button" href="{{ route('purpose.create') }}" class="add-purpose-btn">追加</a>
+								<a type="button" href="{{ route('purpose.create') }}" class="add-purpose-btn btn btn-primary">追加</a>
 								<th><span>Title</span></th>
 								<th class="text-center"><span>Status</span></th>
 								<th>&nbsp;</th>

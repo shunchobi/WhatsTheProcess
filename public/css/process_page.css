@@ -1,0 +1,58 @@
+
+/* .contens-edit-part{
+    
+} */
+
+/* ここから下はdata-listの装飾 */
+.content{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin-top: 40px; 
+}
+
+.data-list-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.contents-block{
+    display: flex;
+    flex-direction: column;
+    background-color: #F0F8FF;
+    width: 70%;
+}
+
+.contents-block > p{
+    margin-left: 10px;
+}
+
+.code{
+    font-size: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.title{
+    margin-bottom: 5px;
+}
+
+.description{
+    margin-bottom: 5px;
+}
+
+.sort-number{
+    margin: 0px 20px;
+    font-size: 20px;
+}
+
+.js_edit_button{
+    margin: 0px 10px;
+    font-size: 15px;
+}
+
+.updata-btn{
+    width
+}
