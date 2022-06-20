@@ -15,8 +15,11 @@ class Purpose_Controller extends Controller
      */
     public function index()
     {
-        $purpose_datas = Purpose::get();
-        return view('purpose_list', ['purpose_datas' => $purpose_datas]);
+        // $purpose_datas = Purpose::get();
+        $purposes = Purpose::with('process')->get();  
+        // dd($purposes);     
+        return view('purpose_list', ['purpose_datas' => $purposes]);
+
     }
 
 
@@ -67,10 +70,18 @@ class Purpose_Controller extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * それぞれのpurposeのprocessの中で一番新しいアップデート日時と、それのpurpose.titleの値を取得するmysqlクエリ。
+     * select purposes.title, max(processes.updated_at) from purposes inner join processes on purposes.id = processes.purpose_id group by title;
+     * 
+     *          title                 max(processes.updated_at)
+     * 
+     *   Git????????????               2022-06-20 00:11:14      
+     *   Laravel???????Bootstrap?????  022-06-20 15:59:53      
      */
-    public function show($id)
+    public function show()
     {
-        //
+ 
     }
 
     /**

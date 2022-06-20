@@ -4,13 +4,15 @@
 
 @section('content')
 
+
+
 <div class="process-title">
     <h2>{{ $purpose_title }}</h2>
 </div>
 
-@foreach ($process_datas as $key => $value)
-    @if ($value->sort_number > 0)
-        <div class="contens-edit-part">
+    @foreach ($process_datas as $key => $value)
+        @if ($value->sort_number > 0)
+            <div class="contens-edit-part">
             <div class="content">
 
                 <form method="post" 
@@ -44,6 +46,7 @@
         </div>
     @endif
 @endforeach
+
 @endsection
 
 

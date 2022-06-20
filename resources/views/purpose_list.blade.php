@@ -18,28 +18,27 @@
 						<tbody>
                         @foreach ($purpose_datas as $key => $value)
 							<tr>
-								
-									<form method="get" action="{{ route('process.show', $purpose_datas[$key]['id']) }}">
-									@csrf
-										<td class="purpose-contents-{{ $purpose_datas[$key]['id'] }}">
-											<div class="icon-title">
-												<i class="fa-solid fa-dragon"></i>	
-												<button type="submit" class="user-link purpose-title-btn">{{ $purpose_datas[$key]['title'] }}</button>
-											</div>
-										</td>
-										<td style="width: 20%;" class="text-center">
-											<span class="label label-default">Inactive</span>
-											<span class="slash">/</span>	
-											<span class="user-subhead">2013/08/08</span>
-										</td>
-										<td style="width: 8%;">
-											<div class="trash-block">
-												<button type="button" data-id={{$purpose_datas[$key]['id']}} class="purpose-delete-btn table-link danger">
-													<i class="fa-solid fa-trash-can"></i>
-												</button>
-											</div>
-										</td>
-									</form> 
+								<form method="get" action="{{ route('process.show', $purpose_datas[$key]['id']) }}">
+								@csrf
+									<td class="purpose-contents-{{ $purpose_datas[$key]['id'] }}">
+										<div class="icon-title">
+											<i class="fa-solid fa-dragon"></i>	
+											<button type="submit" class="user-link purpose-title-btn">{{ $purpose_datas[$key]['title'] }}</button>
+										</div>
+									</td>
+									<td style="width: 20%;" class="text-center">
+										<span class="label label-default">Inactive</span>
+										<span class="slash">/</span>	
+										<span class="user-subhead">{{ $value->getNewestUpdateAt() }}</span>
+									</td>
+									<td style="width: 8%;">
+										<div class="trash-block">
+											<button type="button" data-id={{$purpose_datas[$key]['id']}} class="purpose-delete-btn table-link danger">
+												<i class="fa-solid fa-trash-can"></i>
+											</button>
+										</div>
+									</td>
+								</form> 
 							</tr>
                             @endforeach
 
