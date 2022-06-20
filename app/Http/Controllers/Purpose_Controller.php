@@ -18,6 +18,7 @@ class Purpose_Controller extends Controller
         // $purpose_datas = Purpose::get();
         $purposes = Purpose::with('process')->get();  
         // dd($purposes);     
+        // dd($purposes[0]['process']);
         return view('purpose_list', ['purpose_datas' => $purposes]);
 
     }

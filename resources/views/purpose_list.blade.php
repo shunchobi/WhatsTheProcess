@@ -16,24 +16,24 @@
 							</tr>
 						</thead>
 						<tbody>
-                        @foreach ($purpose_datas as $key => $value)
+                        @foreach ($purpose_datas as $value)
 							<tr>
-								<form method="get" action="{{ route('process.show', $purpose_datas[$key]['id']) }}">
+								<form method="get" action="{{ route('process.show', $value->id) }}">
 								@csrf
-									<td class="purpose-contents-{{ $purpose_datas[$key]['id'] }}">
+									<td class="purpose-contents-{{ $value->id }}">
 										<div class="icon-title">
 											<i class="fa-solid fa-dragon"></i>	
-											<button type="submit" class="user-link purpose-title-btn">{{ $purpose_datas[$key]['title'] }}</button>
+											<button type="submit" class="user-link purpose-title-btn">{{ $value->title }}</button>
 										</div>
 									</td>
 									<td style="width: 20%;" class="text-center">
-										<span class="label label-default">Inactive</span>
+										<span class="label label-default">{{ $value->status }}</span>
 										<span class="slash">/</span>	
 										<span class="user-subhead">{{ $value->getNewestUpdateAt() }}</span>
 									</td>
 									<td style="width: 8%;">
 										<div class="trash-block">
-											<button type="button" data-id={{$purpose_datas[$key]['id']}} class="purpose-delete-btn table-link danger">
+											<button type="button" data-id={{ $value->id }} class="purpose-delete-btn table-link danger">
 												<i class="fa-solid fa-trash-can"></i>
 											</button>
 										</div>
