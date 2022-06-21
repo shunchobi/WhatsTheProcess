@@ -6,18 +6,19 @@
 		<div class="col-lg-12">
 			<div class="main-box clearfix">
 				<div class="table-responsive">
-					<table class="table user-list">
+					<div class="add-btn-div"><a type="button" href="{{ route('purpose.create') }}" class="add-purpose-btn btn btn-primary">追加</a></div>
+					<table class="table user-list" style="margin-top: 20px auto;">
 						<thead>
 							<tr>
-								<a type="button" href="{{ route('purpose.create') }}" class="add-purpose-btn btn btn-primary">追加</a>
 								<th><span>Title</span></th>
 								<th class="text-center"><span>Status</span></th>
+								<th class="text-center"><span>Date</span></th>
 								<th>&nbsp;</th>
 							</tr>
 						</thead>
 						<tbody>
                         @foreach ($purpose_datas as $value)
-							<tr>
+							<tr class="purpose-contents-{{ $value->id }}">
 								<form method="get" action="{{ route('process.show', $value->id) }}">
 								@csrf
 									<td class="purpose-contents-{{ $value->id }}">
@@ -26,9 +27,10 @@
 											<button type="submit" class="user-link purpose-title-btn">{{ $value->title }}</button>
 										</div>
 									</td>
-									<td style="width: 20%;" class="text-center">
+									<td style="width: 10%;" class="text-center">
 										<span class="label label-default">{{ $value->status }}</span>
-										<span class="slash">/</span>	
+									</td>
+									<td class="text-center">
 										<span class="user-subhead">{{ $value->getNewestUpdateAt() }}</span>
 									</td>
 									<td style="width: 8%;">
@@ -41,7 +43,6 @@
 								</form> 
 							</tr>
                             @endforeach
-
 						</tbody>
 					</table>
 				</div>
@@ -79,3 +80,14 @@ window.addEventListener('DOMContentLoaded', function () {
 });
 
 </script>
+
+<style>
+	.add-btn-div{
+		display: flex;
+		padding-bottom: 30px; 
+	}
+
+	.add-purpose-btn{
+		margin-top: 20px;
+	}
+</style>

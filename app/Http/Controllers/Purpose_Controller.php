@@ -47,8 +47,7 @@ class Purpose_Controller extends Controller
         //retun index();
         $purpose_new_datas = Purpose::create([
             'title' => $request->purpose_title,
-            'status' => "draft", 
-            // 'status' => $request->purpose_status, // wanna add 
+            'status' => $request->purpose_status, 
         ]);
         
         $purpose_datas = Purpose::get();
