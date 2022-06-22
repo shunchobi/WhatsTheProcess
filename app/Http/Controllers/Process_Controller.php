@@ -35,7 +35,7 @@ class Process_Controller extends Controller
      * データベースからデータをゲットし、Viewを新規作成（create）する。
      *  
      */
-    public function create()
+    public function create(Request $request)
     {
         Process::create([
             'purpose_id' => $request->purpose_id,
