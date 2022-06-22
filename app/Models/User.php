@@ -47,8 +47,13 @@ class User extends Authenticatable
     ];
 
 
-    public function processes()
+    public function process()
     {
         return $this->hasManyThrough(Process::class, Purpose::class);
+    }
+
+    public function purpose()
+    {
+        return $this->hasMany(Purpose::class);
     }
 }

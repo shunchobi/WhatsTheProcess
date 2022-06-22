@@ -76,7 +76,7 @@ class RegisterController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255', //@gmail だとエラーになる
             'username' => 'required|max:255',
             'password' => 'required|confirmed',
         ]);
@@ -88,25 +88,7 @@ class RegisterController extends Controller
             'password' => Hash::make($request['password']),
         ]);
 
-        Process::create([
-            'purpose_id' => $request->purpose_id,
-            'sort_number' => $request->sort_number,
-            'title' => $request->title,
-            'command' => $request->command,
-            'description' => $request->description,
-        ]);
-
-        //here
-        //Purpose table, creation with empty records
-        //Process table, creation with empty records
-
-
-
-        //add purpose
-        //at the line of insert a record to purpose table, must do it with user_id column inserted 
-
-        //add process
-        //at the line of insert a record to purpose table, must do it with user_id column inserted 
+        
 
 
         auth()->attempt($request->only('email', 'password'));

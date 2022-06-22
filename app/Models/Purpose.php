@@ -35,7 +35,7 @@ class Purpose extends Model
 
 
 
-    
+
 
     public function getMyStatus()
     {

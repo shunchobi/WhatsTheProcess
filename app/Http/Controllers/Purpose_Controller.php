@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Purpose;
 use App\Models\Process;
+use App\Models\User;
 
 class Purpose_Controller extends Controller
 {
@@ -21,7 +22,7 @@ class Purpose_Controller extends Controller
     public function index()
     {
         // $purpose_datas = Purpose::get();
-        $purposes = Purpose::with('process')->get();  
+        $purposes = Purpose::with('process')->get(); 
         // dd($purposes);     
         // dd($purposes[0]['process']);
         return view('purpose_list', ['purpose_datas' => $purposes]);
@@ -35,6 +36,23 @@ class Purpose_Controller extends Controller
      */
     public function create()
     {
+        //現在ログインしているユーザーにのみに紐づくpurposes processes データの取得
+        $alluser_and_allpurpose = User::with('purpose')->get()->toArray();
+        $user_with_purpose = array_filter($alluser_and_allpurpose, function($key){
+            return $key['id'] == auth()->user()->id;
+        });
+
+        $alluser_and_allprocess = User::with('process')->get()->toArray();
+        $user_with_process = array_filter($alluser_and_allprocess, function($key){
+            return $key['purpose_id'] == auth()->user()->id;
+        });
+
+        dd($user_with_process);
+        
+
+
+        $my_processes_data = User::with('process')->get();
+
         return view('add_purpose_list');
     }
 
@@ -46,15 +64,18 @@ class Purpose_Controller extends Controller
      */
     public function store(Request $request)
     {
-        //save the purpose datas
-        //save the process datas by loop
-        //retun index();
+        //現在ログイン状態のユーザー情報を取得
+        $my_user_info = auth()->user();
+
+         //add process
+        //at the line of insert a record to purpose table, must do it with user_id column inserted 
+       
         $purpose_new_datas = Purpose::create([
             'title' => $request->purpose_title,
             'status' => $request->purpose_status, 
+            'user_id'=> $my_user_info->id,
         ]);
         
-        $purpose_datas = Purpose::get();
         for ($i=0; $i < 10; $i++) { 
             Process::create([
                 'purpose_id' => $purpose_new_datas['id'],
