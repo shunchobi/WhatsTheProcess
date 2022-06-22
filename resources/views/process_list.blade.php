@@ -6,9 +6,14 @@
 
 
 
-<div class="process-title">
-    <h2>{{ $purpose_title }}</h2>
-</div>
+<form method="post" action="{{ route('purpose.update', $purpose_id) }}" class="process-title" id="purpose-title-form">
+@csrf
+@method("PATCH")
+    <h2 class="purpose-title-text">{{ $purpose_title }}</h2>
+    <input name="title" type="text" class="purpose-title-field" placeholder="{{ $purpose_title }}" style="display: none;">
+    <a type="button" class="purpose-title-edit-btn" style="margin-left: 20px; padding-top: 5px;">Edit</a>
+    <button type="submit" class="purpose-title-ok-btn btn btn-primary" style="display: none; margin-left: 20px;">OK</button>
+</form>
 
     @foreach ($process_datas as $key => $value)
         @if ($value->sort_number > 0)
@@ -40,7 +45,12 @@
                         <p class="title">-{{ $process_datas[$key]['title'] }}-</p>
                         <p class="description">{{ $process_datas[$key]['description'] }}</p>
                     </div>
-                    <a class="js_edit_button" data-process-id="{{ $value->id }}">edit</a>
+                    <a class="js_edit_button" data-process-id="{{ $value->id }}">Edit</a>
+                    <form method="post" action="{{ route('process.destroy', $value->getId()) }}">
+                    @csrf
+                    @method('delete')
+                        <button class="js_delete_button" style="color: red;" type="submit">Delete</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -48,6 +58,10 @@
 @endforeach
 
 @endsection
+
+<script>
+let isEditingTitle = false;
+</script>
 
 
 <script>
@@ -57,5 +71,20 @@
             $("#edit-form-" + processId).toggle();
             $("#data-list-" + processId).toggle();
         })
+
+
+        $(".purpose-title-edit-btn").click(function(){
+            $(".purpose-title-text").toggle();
+            $(".purpose-title-field").toggle();
+            $(".purpose-title-ok-btn").toggle();
+            $(".purpose-title-edit-btn").toggle();
+        });
+
+        $(".purpose-title-ok-btn").click(function(){
+            $(".purpose-title-text").toggle();
+            $(".purpose-title-field").toggle();
+            $(".purpose-title-ok-btn").toggle();
+            $(".purpose-title-edit-btn").toggle();
+        });
     });
 </script>

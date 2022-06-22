@@ -8,6 +8,11 @@ use App\Models\Process;
 
 class Purpose_Controller extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +25,6 @@ class Purpose_Controller extends Controller
         // dd($purposes);     
         // dd($purposes[0]['process']);
         return view('purpose_list', ['purpose_datas' => $purposes]);
-
     }
 
 
@@ -92,7 +96,7 @@ class Purpose_Controller extends Controller
      */
     public function edit($id)
     {
-        //
+    
     }
 
     /**
@@ -104,7 +108,16 @@ class Purpose_Controller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if($request['title'] == null){
+            return redirect(route('process.show', $id));
+        }
+
+        $target_purposedata = Purpose::where('id', $id)->first();
+        $target_purposedata->title = $request['title'];
+        $target_purposedata->save();
+        // dd($target_purposedata);
+        
+        return redirect(route('process.show', $id));
     }
 
     /**

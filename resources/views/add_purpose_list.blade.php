@@ -14,10 +14,9 @@ $current_sort_num = 10;
 <form method="post" action="{{ route('purpose.store') }}" id="purpose-data-title">
 @csrf
 <div class="purpose-title-block">
-        <input placeholder="Purposeタイトルを入力してください" type="text" class="purpose-title" name="purpose_title" value="">
-        <input placeholder="Statusを入力してください" type="text" class="purpose-status" name="purpose_status" value="">
+    <input placeholder="Purposeタイトルを入力してください" type="text" class="purpose-title" name="purpose_title" value="">
+    <input placeholder="Statusを入力してください" type="text" class="purpose-status" name="purpose_status" value="">
 </div>
-
     <table class="add_p_table">
         <thead>
             <tr>
@@ -56,7 +55,7 @@ window.addEventListener('DOMContentLoaded', function () {
     // OKボタン
     // 入力されたすべての情報をデータベースへinsertする
     //
-    $(".submit-btn").click(function(){
+    $(".add-purpose-submit-btn").click(function(){
         $("#purpose-data-title").submit();
     });
 });

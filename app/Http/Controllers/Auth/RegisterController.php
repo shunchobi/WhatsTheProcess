@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Exception;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+// use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -31,6 +34,12 @@ class RegisterController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+
+    public function index()
+    {
+        return view('auth.register');
+    }
+
     /**
      * Create a new controller instance.
      *
@@ -38,7 +47,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware(['guest']);
     }
 
     /**
@@ -62,12 +71,25 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255',
+            'username' => 'required|max:255',
+            'password' => 'required|confirmed',
         ]);
+
+        User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'username' => $request['username'],
+            'password' => Hash::make($request['password']),
+        ]);
+
+        auth()->attempt($request->only('email', 'password'));
+
+        return redirect()->route('purpose.index');
+
     }
 }

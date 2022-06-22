@@ -19,12 +19,11 @@
 						<tbody>
                         @foreach ($purpose_datas as $value)
 							<tr class="purpose-contents-{{ $value->id }}">
-								<form method="get" action="{{ route('process.show', $value->id) }}">
-								@csrf
+								<div>
 									<td class="purpose-contents-{{ $value->id }}">
 										<div class="icon-title">
 											<i class="fa-solid fa-dragon"></i>	
-											<button type="submit" class="user-link purpose-title-btn">{{ $value->title }}</button>
+											<a href="{{ route('process.show', $value->id) }}" class="user-link purpose-title-btn">{{ $value->title }}</a>
 										</div>
 									</td>
 									<td style="width: 10%;" class="text-center">
@@ -40,7 +39,7 @@
 											</button>
 										</div>
 									</td>
-								</form> 
+								</div> 
 							</tr>
                             @endforeach
 						</tbody>

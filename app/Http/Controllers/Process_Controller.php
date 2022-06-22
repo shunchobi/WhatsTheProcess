@@ -8,6 +8,11 @@ use App\Models\Purpose;
 
 class Process_Controller extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -65,23 +70,17 @@ class Process_Controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id) // $id = purpose.id
     {
-        $process_datas = Process::get();
-        $target_process_datas = [];
-        $purpose_data = Purpose::find($id);
 
-        foreach ($process_datas as $key => $value){
-            if($process_datas[$key]['purpose_id'] == $id){
-                $index_num = $process_datas[$key]['id'] - 1;
-                $target_process_datas[] = $process_datas[$index_num];
-            }
-        }
+        $purpose_data = Purpose::with('process')->find($id);
+        $process_datas = $purpose_data->process;
 
         return view('process_list', [
-            'process_datas' => $target_process_datas,
+            'process_datas' => $process_datas,
             'purpose' => $purpose_data,
-            'purpose_title' => $purpose_data['title']
+            'purpose_title' => $purpose_data->title,
+            'purpose_id' => $purpose_data->id,
         ]);
     }
 
@@ -121,8 +120,13 @@ class Process_Controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id) //$id = process.id
     {
-        //
+
+        $process = Process::with('purpose')->get();  
+        $purposeId = Process::find($id)->purpose_id;
+        Process::find($id)->delete();
+
+        return redirect(route('process.show', $purposeId));
     }
 }
