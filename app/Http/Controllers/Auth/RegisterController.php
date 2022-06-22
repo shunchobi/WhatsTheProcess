@@ -87,6 +87,19 @@ class RegisterController extends Controller
             'password' => Hash::make($request['password']),
         ]);
 
+        //here
+        //Purpose table, creation with empty records
+        //Process table, creation with empty records
+        
+
+
+        //add purpose
+        //at the line of insert a record to purpose table, must do it with user_id column inserted 
+
+        //add process
+        //at the line of insert a record to purpose table, must do it with user_id column inserted 
+
+
         auth()->attempt($request->only('email', 'password'));
 
         return redirect()->route('purpose.index');
