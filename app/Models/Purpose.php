@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Process;
+use App\Models\User;
 
 class Purpose extends Model
 {
 
 
     use HasFactory;
-    protected $fillable =['title', 'status'];
+    protected $fillable =['title', 'status', 'user_id'];
 
 
 
@@ -24,13 +25,17 @@ class Purpose extends Model
     }
 
 
+    //
+    //Laravelは勝手に親の「id」と子の「user_id」というカラム名があれば探して紐づけてくれるから下記は必要ない
+    //
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
-    // public function test()
-    // {
-    //     $processCount = count($this->relations['process']);
-    //     return $processCount;
-    // }
 
+
+    
 
     public function getMyStatus()
     {

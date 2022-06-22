@@ -9,7 +9,7 @@ use App\Models\Purpose;
 class Process extends Model
 {
     use HasFactory;
-    protected $fillable = ['purpose_id', 'sort_number', 'title', 'command', 'description'];
+    protected $fillable = ['purpose_id', 'sort_number', 'title', 'command', 'description', 'user_id'];
 
 
     public function purpose()

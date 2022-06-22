@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Process;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Exception;
@@ -87,10 +88,18 @@ class RegisterController extends Controller
             'password' => Hash::make($request['password']),
         ]);
 
+        Process::create([
+            'purpose_id' => $request->purpose_id,
+            'sort_number' => $request->sort_number,
+            'title' => $request->title,
+            'command' => $request->command,
+            'description' => $request->description,
+        ]);
+
         //here
         //Purpose table, creation with empty records
         //Process table, creation with empty records
-        
+
 
 
         //add purpose
