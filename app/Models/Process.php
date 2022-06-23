@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Purpose;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Process extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $fillable = ['purpose_id', 'sort_number', 'title', 'command', 'description', 'user_id'];
 
 

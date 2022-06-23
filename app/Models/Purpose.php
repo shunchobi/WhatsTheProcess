@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Process;
 use App\Models\User;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Purpose extends Model
 {
 
 
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $fillable =['title', 'status', 'user_id'];
 
 
@@ -53,6 +54,7 @@ class Purpose extends Model
         // dd($this); // $this is purpose
         $processes = $this->process; //relations is key name of purpose value as processes which are related
         $newestDate = $this->updated_at;        
+        
         $newestDateString = function($dateArray){
             return "{$dateArray->year} / {$dateArray->month} / {$dateArray->day}";
         };

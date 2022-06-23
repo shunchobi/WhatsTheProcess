@@ -12,7 +12,8 @@ class Purpose_Controller extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        //routeにmiddlewareをすでに指定しているため、ここにはいらない
+        // $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -21,10 +22,14 @@ class Purpose_Controller extends Controller
      */
     public function index()
     {
-        // $purpose_datas = Purpose::get();
-        $purposes = Purpose::with('process')->get(); 
-        // dd($purposes);     
-        // dd($purposes[0]['process']);
+        //below comment code, Get all purpose data with related process data.
+        // $purposes = Purpose::with('process')->get(); 
+
+        //Get purpose data that is belong to my user account
+        $purposes = auth()->user()->purpose;
+
+        // dd(User::with('purpose', 'process')->get());
+        
         return view('purpose_list', ['purpose_datas' => $purposes]);
     }
 
@@ -37,22 +42,17 @@ class Purpose_Controller extends Controller
     public function create()
     {
         //現在ログインしているユーザーにのみに紐づくpurposes processes データの取得
-        $alluser_and_allpurpose = User::with('purpose')->get()->toArray();
-        $user_with_purpose = array_filter($alluser_and_allpurpose, function($key){
-            return $key['id'] == auth()->user()->id;
-        });
+        // $alluser_and_allpurpose = User::with('purpose')->get()->toArray();
+        // $user_with_purpose = array_filter($alluser_and_allpurpose, function($key){
+        //     return $key['id'] == auth()->user()->id;
+        // });
 
-        $alluser_and_allprocess = User::with('process')->get()->toArray();
-        $user_with_process = array_filter($alluser_and_allprocess, function($key){
-            return $key['purpose_id'] == auth()->user()->id;
-        });
+        // $alluser_and_allprocess = User::with('process')->get()->toArray();
+        // $user_with_process = array_filter($alluser_and_allprocess, function($key){
+        //     return $key['purpose_id'] == auth()->user()->id;
+        // });
 
-        dd($user_with_process);
-        
-
-
-        $my_processes_data = User::with('process')->get();
-
+        // dd(auth()->user()->process);        
         return view('add_purpose_list');
     }
 
@@ -69,22 +69,41 @@ class Purpose_Controller extends Controller
 
          //add process
         //at the line of insert a record to purpose table, must do it with user_id column inserted 
-       
-        $purpose_new_datas = Purpose::create([
+
+
+        $purpose_new_datas = $request->user()->purpose()->create([
             'title' => $request->purpose_title,
             'status' => $request->purpose_status, 
-            'user_id'=> $my_user_info->id,
+            'user_id'=> auth()->user()->id,
         ]);
-        
+
         for ($i=0; $i < 10; $i++) { 
-            Process::create([
+            $request->user()->process()->create([
                 'purpose_id' => $purpose_new_datas['id'],
                 'sort_number'  => $request->title[$i] == null ? "" : $i + 1,
                 'title' => $request->title[$i] ?? "",
                 'command' => $request->command[$i] ?? "",
                 'description' => $request->description[$i] ?? "",
-            ]); 
+            ]);
         }
+
+        //上と下のコードは同じことをしているが、user()を使えば上のようにシンプルに書ける
+       
+        // $purpose_new_datas = Purpose::create([
+        //     'title' => $request->purpose_title,
+        //     'status' => $request->purpose_status, 
+        //     'user_id'=> auth()->user()->id,
+        // ]);
+        
+        // for ($i=0; $i < 10; $i++) { 
+        //     Process::create([
+        //         'purpose_id' => $purpose_new_datas['id'],
+        //         'sort_number'  => $request->title[$i] == null ? "" : $i + 1,
+        //         'title' => $request->title[$i] ?? "",
+        //         'command' => $request->command[$i] ?? "",
+        //         'description' => $request->description[$i] ?? "",
+        //     ]); 
+        // }
         
         // return $this->index();
         return redirect(route('purpose.index'));

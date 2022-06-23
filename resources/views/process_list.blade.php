@@ -6,11 +6,11 @@
 
 
 
-<form method="post" action="{{ route('purpose.update', $purpose_id) }}" class="process-title" id="purpose-title-form">
+<form method="post" action="{{ route('purpose.update', $purpose_data['id']) }}" class="process-title" id="purpose-title-form">
 @csrf
 @method("PATCH")
-    <h2 class="purpose-title-text">{{ $purpose_title }}</h2>
-    <input name="title" type="text" class="purpose-title-field" placeholder="{{ $purpose_title }}" style="display: none;">
+    <h2 class="purpose-title-text">{{ $purpose_data->title }}</h2>
+    <input name="title" type="text" class="purpose-title-field" placeholder="{{ $purpose_data->title }}" style="display: none;">
     <a type="button" class="purpose-title-edit-btn" style="margin-left: 20px; padding-top: 5px;">Edit</a>
     <button type="submit" class="purpose-title-ok-btn btn btn-primary" style="display: none; margin-left: 20px;">OK</button>
 </form>
