@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Purpose;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class LoginController extends Controller
 {
@@ -36,6 +39,20 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        $target_user = User::whereHas('purpose', function(Builder $query){
+            $query->where('user_id', '4');
+        })->get();
+
+        // $target_repuest = Purpose::with('user')->where('status', 'draft')->get();
+        // $target_repuest = User::with(['purpose', function(Builder $query){
+        //     $query->where('status', 'draft');
+        // }])->get();
+
+        // $try_test = Purpose::with('user')->where('title', 'test for create')->get();
+
+        // $result = count($target_user) > 0;
+
+        // dd($try_test[0]->title);
         // $this->middleware(['guest']);  
     }
 
